@@ -26,11 +26,11 @@ def get_filters():
 
    # get user input for month (all, january, february, ... , june)
     while month not in MONTHS:
-        month = input('\nWhich month - "January", "February", "March", "April", "May", "June", or "all" to apply no month filter?\n').strip().lower()
+        month = input('\nFor which month - "January", "February", "March", "April", "May", "June", or "all" to apply no month filter?\n').strip().lower()
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     while day not in DAYS:
-        day = input('\nWhich day - "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", or "all" to apply no day filter?\n').strip().lower()
+        day = input('\nFor which day - "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", or "all" to apply no day filter?\n').strip().lower()
 
     print('-'*40)
     return city, month, day
@@ -128,11 +128,11 @@ def station_stats(df):
 
     # display most commonly used start station
     start_station = df['Start Station'].mode()[0]
-    print('Most commonly used start station is "{}"'.format(start_station))
+    print('Most common start station is "{}"'.format(start_station))
 
     # display most commonly used end station
     end_station = df['End Station'].mode()[0]
-    print('Most commonly used end station is "{}"'.format(end_station))
+    print('Most common end station is "{}"'.format(end_station))
 
     # display most frequent combination of start station and end station trip
     df['trip'] = df['Start Station'] + ' --> '+ df['End Station']
@@ -153,8 +153,8 @@ def trip_duration_stats(df):
     total_time = df['Trip Duration'].sum()
     print('\nTotal travel time is %s seconds.' % total_time)
     # display mean travel time
-    mean_time = df['Trip Duration'].mean()
-    print('\nAverage travel time is %s seconds.\n' % mean_time)
+    avg_time = df['Trip Duration'].mean()
+    print('\nAverage travel time is %s seconds.\n' % avg_time)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -198,6 +198,7 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df, city)
+        
         restart = input('\nWould you like to restart? Enter "yes" or "no".\n')
         if restart.lower() != 'yes':
             break
