@@ -19,18 +19,18 @@ def get_filters():
     """
     city, day, month = "","",""
     print('Hello! Let\'s explore some US bikeshare data!')
-    
+
     # get user input for city (chicago, new york city, washington)
     while city not in CITY_DATA:
         city = input('\nWould you like to see data for "Chicago", "New York City", or "Washington"?\n').strip().lower()
-  
+
    # get user input for month (all, january, february, ... , june)
     while month not in MONTHS:
-        month = input('\nWhich month - "January", "February", "March", "April", "May", "June", or "all" to apply no month filter?\n').strip().lower()
-    
+        month = input('\nFor which month - "January", "February", "March", "April", "May", "June", or "all" to apply no month filter?\n').strip().lower()
+
     # get user input for day of week (all, monday, tuesday, ... sunday)
     while day not in DAYS:
-        day = input('\nWhich day - "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", or "all" to apply no day filter?\n').strip().lower()
+        day = input('\nFor which day - "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", or "all" to apply no day filter?\n').strip().lower()
 
     print('-'*40)
     return city, month, day
@@ -47,7 +47,7 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
-    
+
     print('\nOK, loading data for "{}" city and filtering by month="{}" and day="{}"...\n'.format(city,month,day))
     start_time = time.time()
      # load data file into a dataframe
@@ -72,11 +72,11 @@ def load_data(city, month, day):
     if day != 'all':
         # filter by day of week to create the new dataframe
         df = df[df['day_of_week'] == day.title()]
-        
+
     print('-'*40)
     return df
-    
-    
+
+
 def display_data(df, rows=5):
     """Displays rows from the DataFrame provided as an argument.
     Args:
@@ -86,17 +86,17 @@ def display_data(df, rows=5):
     print('\nDisplaying data...\n')
     start_time = time.time()
     print(df.iloc[0:rows])
-    
+
     for i in range(rows, len(df)-1, rows):
         more = input('\nWould you like to see more raw data? Enter "yes" or "no".\n')
         if more.strip().lower() != "yes":
             break
         else:
             print(df.iloc[i:i+rows])
-            
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
-    
+
 def time_stats(df):
     """Displays statistics on the most frequent times of travel."""
 
@@ -110,7 +110,7 @@ def time_stats(df):
     # display the most common day of week
     common_day = df['day_of_week'].mode()[0]
     print('Most common day of week is {}.'.format(common_day))
-    
+
     # display the most common start hour
     df['start hour'] = df['Start Time'].dt.hour
     start_hour = df['start hour'].mode()[0]
@@ -184,7 +184,7 @@ def user_stats(df, city):
         print('Most common year of birth is {}'.format(common_year))
     except KeyError:
         print('\n"Gender" and "Birth Year" Statistics are unavailable for {}\n'.format(city.title()))
-    
+
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
@@ -198,7 +198,7 @@ def main():
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df, city)
-        
+
         restart = input('\nWould you like to restart? Enter "yes" or "no".\n')
         if restart.lower() != 'yes':
             break
